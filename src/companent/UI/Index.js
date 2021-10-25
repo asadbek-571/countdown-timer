@@ -2,7 +2,7 @@ import './style.scss'
 import logo from "../../icons/dev.svg";
 import volume from "../../icons/volume (1).png";
 import mute from "../../icons/mute (1).png";
-import audio from "../../audio/Squid Game OST - Pink Soldiers_[mp3mob.net].mp3"
+import audio from "../../audio/Bojalar - Yomg'ir.mp3"
 import Timer from "../Timer";
 import {useRef, useState} from "react";
 import useSound from "use-sound";
@@ -102,7 +102,7 @@ const Index = (props) => {
                     </div>
                     <div className="countBox">
                         <Timer soundImg={data.soundImg} disabled={disabled} display={disabled ? '' : 'none'} getHour={hour}
-                               getMinute={minute} getSecond={second}/>
+                               getMinute={minute} getSecond={second} audio={data.soundImg===volume?audio:''}/>
                     </div>
                 </div>
             </div>

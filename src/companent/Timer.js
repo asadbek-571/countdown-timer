@@ -2,13 +2,14 @@ import {useEffect, useRef, useState} from "react";
 import volume from "../icons/volume (1).png";
 import './style.css'
 import useSound from "use-sound";
-import audio from "../audio/Squid Game OST - Pink Soldiers_[mp3mob.net].mp3";
+import audio from "../audio/Bojalar - Yomg'ir.mp3";
 
 const Timer = (props) => {
 
     const [hour, setHour] = useState("00")
     const [minute, setMinute] = useState("00")
     const [second, setSecond] = useState("00")
+    let [theFirstOne, setTheFirstOne] = useState(true)
 
     let interval = useRef()
 
@@ -39,22 +40,22 @@ const Timer = (props) => {
         }
     })
 
-    let interval2 = setInterval(() => {
-
-        if (props.soundImg === volume) {
-            if (props.disabled) {
-                console.log(props.second)
-                console.log(props.hour)
-                if (hour === '00' && minute === '00' && second === '00') {
-                    playActive()
-                    clearInterval(interval2)
-                }
-            }
-        }
+     let interval2 = setInterval(() => {
+         if (theFirstOne) {
+             if (props.soundImg === volume) {
+                 if (props.disabled) {
+                     if (hour === '00' && minute === '00' && second === '00') {
+                         clearInterval(interval2)
+                         setTheFirstOne(theFirstOne=false)
+                         playActive()
+                     }
+                 }
+             }
+         }
     }, 1000);
 
-    const [playActive] = useSound(
-        props.soundImg === volume?audio:'',
+    const [playActive,stop] = useSound(
+        audio,
         {volume: 0.25}
     );
     return (
