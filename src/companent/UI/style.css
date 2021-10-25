@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+body {
+  background-color: #282c34; }
+
+.wrapper {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center; }
+  .wrapper .left, .wrapper .right {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; }
+    .wrapper .left .imgBox, .wrapper .right .imgBox {
+      width: 80%;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; }
+      .wrapper .left .imgBox .buttonBox, .wrapper .right .imgBox .buttonBox {
+        width: 70%;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
+        .wrapper .left .imgBox .buttonBox button, .wrapper .right .imgBox .buttonBox button {
+          width: 100%;
+          border-top: 2px solid #fff;
+          border-left: 0;
+          border-right: 0;
+          border-bottom: 0;
+          padding: 5px;
+          height: 40px;
+          color: #61dafb;
+          background: #282c34; }
+          .wrapper .left .imgBox .buttonBox button img, .wrapper .right .imgBox .buttonBox button img {
+            max-width: 100%;
+            height: 100%; }
+        .wrapper .left .imgBox .buttonBox button:hover, .wrapper .right .imgBox .buttonBox button:hover {
+          border-top-color: #61dafb; }
+    .wrapper .left .countBox, .wrapper .right .countBox {
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+      .wrapper .left .countBox h1, .wrapper .right .countBox h1 {
+        font-size: 100px; }
+    .wrapper .left .timerBox, .wrapper .right .timerBox {
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+    .wrapper .left .inputBox, .wrapper .right .inputBox {
+      width: 80%; }
+      .wrapper .left .inputBox input, .wrapper .right .inputBox input {
+        padding: 10px;
+        margin: 5px;
+        width: 150px;
+        font-family: "Digital-7 Mono", sans-serif;
+        font-size: 30px;
+        text-align: center;
+        background: #61dafb;
+        border: 0;
+        border-radius: 15px;
+        appearance: none; }
+      .wrapper .left .inputBox input[type=number]::-webkit-inner-spin-button, .wrapper .right .inputBox input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none; }
+      .wrapper .left .inputBox input[type=number]:focus, .wrapper .right .inputBox input[type=number]:focus {
+        outline-width: 0; }
+
+/*# sourceMappingURL=style.css.map */
