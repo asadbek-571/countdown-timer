@@ -54,7 +54,7 @@ const Timer = (props) => {
     }, 1000);
 
     const [playActive] = useSound(
-        audio,
+        props.soundImg === volume?audio:'',
         {volume: 0.25}
     );
     return (
