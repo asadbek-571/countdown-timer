@@ -9,6 +9,7 @@ $fa-font-path: "./src/fonts/digital-7.ttf";
 
 body {
   background-color: #282c34;
+
 }
 
 .wrapper {
@@ -95,6 +96,7 @@ body {
         border: 0;
         border-radius: 15px;;
         appearance: none;
+
       }
 
       input[type=number]::-webkit-inner-spin-button {
@@ -102,10 +104,12 @@ body {
       }
 
       input[type=number]:hover {
+
       }
 
       input[type=number]:focus {
         outline-width: 0;
+
       }
     }
   }

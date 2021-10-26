@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import volume from "../icons/volume (1).png";
 import './style.css'
 import useSound from "use-sound";
-import audio from "../audio/Bojalar - Yomg'ir.mp3";
+import audio from "../audio/Squid Game OST - Pink Soldiers_[mp3mob.net].mp3";
 
 const Timer = (props) => {
 
@@ -12,9 +12,15 @@ const Timer = (props) => {
     let [theFirstOne, setTheFirstOne] = useState(true)
 
     let interval = useRef()
-
+    console.log(props.getSecond)
+    const addedHour=+props.getHour+new Date().getHours()
+    const addedMinute=+props.getMinute+new Date().getMinutes()
+    const addedSecond=+props.getSecond+new Date().getSeconds()
     const startTime = () => {
-        const countdownDate = new Date((new Date().getMonth() + 1) + ' ' + (new Date().getDate()) + ', 2021 ' + props.getHour + ':' + props.getMinute + ':' + props.getSecond).getTime()
+
+
+
+        const countdownDate = new Date((new Date().getMonth() + 1) + ' ' + (new Date().getDate()) + ', 2021 ' +addedHour + ':' + addedMinute + ':' + addedSecond).getTime()
 
         interval = setInterval(() => {
             const now = new Date().getTime()
@@ -36,11 +42,13 @@ const Timer = (props) => {
     useEffect(() => {
         startTime(props)
         return () => {
-            clearInterval(interval.current)
+            const {current} = interval;
+            clearInterval(current)
         }
     })
 
      let interval2 = setInterval(() => {
+
          if (theFirstOne) {
              if (props.soundImg === volume) {
                  if (props.disabled) {
@@ -54,11 +62,12 @@ const Timer = (props) => {
          }
     }, 1000);
 
-    const [playActive,stop] = useSound(
+    const [playActive] = useSound(
         audio,
-        {volume: 0.25}
+        {id:'1',volume: 0.25}
     );
     return (
+
         <div>
             <h1 style={{display: props.display}}>{hour}:{minute}:{second}</h1>
         </div>
