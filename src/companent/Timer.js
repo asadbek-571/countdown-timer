@@ -12,16 +12,10 @@ const Timer = (props) => {
     let [theFirstOne, setTheFirstOne] = useState(true)
 
     let interval = useRef()
-    console.log(props.getSecond)
-    const addedHour=+props.getHour+new Date().getHours()
-    const addedMinute=+props.getMinute+new Date().getMinutes()
-    const addedSecond=+props.getSecond+new Date().getSeconds()
+
     const startTime = () => {
-
-
-
-        const countdownDate = new Date((new Date().getMonth() + 1) + ' ' + (new Date().getDate()) + ', 2021 ' +addedHour + ':' + addedMinute + ':' + addedSecond).getTime()
-
+        console.log(props.disabled)
+        const countdownDate = new Date((new Date().getMonth() + 1) + ' ' + (new Date().getDate()) + ', 2021 ' + props.getHour + ':' + props.getMinute + ':' + props.getSecond).getTime()
         interval = setInterval(() => {
             const now = new Date().getTime()
             const distance = countdownDate - now
@@ -47,24 +41,24 @@ const Timer = (props) => {
         }
     })
 
-     let interval2 = setInterval(() => {
+    let interval2 = setInterval(() => {
 
-         if (theFirstOne) {
-             if (props.soundImg === volume) {
-                 if (props.disabled) {
-                     if (hour === '00' && minute === '00' && second === '00') {
-                         clearInterval(interval2)
-                         setTheFirstOne(theFirstOne=false)
-                         playActive()
-                     }
-                 }
-             }
-         }
+        if (theFirstOne) {
+            if (props.soundImg === volume) {
+                if (props.disabled) {
+                    if (hour === '00' && minute === '00' && second === '00') {
+                        clearInterval(interval2)
+                        setTheFirstOne(theFirstOne = false)
+                        playActive()
+                    }
+                }
+            }
+        }
     }, 1000);
 
     const [playActive] = useSound(
         audio,
-        {id:'1',volume: 0.25}
+        {id: '1', volume: 0.25}
     );
     return (
 

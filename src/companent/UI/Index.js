@@ -2,52 +2,49 @@ import './style.scss'
 import logo from "../../icons/dev.svg";
 import volume from "../../icons/volume (1).png";
 import mute from "../../icons/mute (1).png";
-import audio from "../../audio/Bojalar - Yomg'ir.mp3"
 import Timer from "../Timer";
-import {useRef, useState} from "react";
-import useSound from "use-sound";
-
-
+import { useRef, useState} from "react";
 
 const Index = (props) => {
 
-    let interval = useRef()
 
     const [data, setData] = useState({
         soundImg: volume,
-        countDisplay: ''
+        countDisplay: '',
+        disabled:false
     })
-    let [disabled,setDisabled]=useState(false)
     const [hour, setHour] = useState("00")
     const [minute, setMinute] = useState("00")
     const [second, setSecond] = useState("00")
 
+    console.log(data.disabled)
+
     const onStartClicked = () => {
         if (hour > 0 || minute > 0 || second > 0) {
             data.countDisplay = 'none'
+            data.disabled=true
             setData({...data, countDisplay: data.countDisplay})
-            setDisabled(disabled=true)
+            setData({...data,disabled:data.disabled})
+            console.log(data.disabled )
+
         }
     }
 
-    const [playActive] = useSound(
-        audio,
-        {volume: 0.25}
-    );
 
     const onSoundClicked = () => {
         setData({...data, soundImg: data.soundImg === volume ? mute : volume})
     }
 
-    const onClearClicked=()=>{
-        const hourId=document.getElementById('hour')
-        const minuteId=document.getElementById('minute')
-        const secondId=document.getElementById('second')
+    const onClearClicked = () => {
+        const hourId = document.getElementById('hour')
+        const minuteId = document.getElementById('minute')
+        const secondId = document.getElementById('second')
 
-        hourId.value=''
-        minuteId.value=''
-        secondId.value=''
-        setDisabled(disabled=false)
+        hourId.value = ''
+        minuteId.value = ''
+        secondId.value = ''
+        data.disabled=false
+        setData({...data,disabled:data.disabled})
         data.countDisplay = ''
         setData({...data, countDisplay: data.countDisplay})
         setHour('00')
@@ -56,13 +53,14 @@ const Index = (props) => {
 
     }
 
+    const sec=useRef()
     return (
         <div className={'wrapper'}>
             <div className="left">
                 <div className={'imgBox'}>
                     <img src={logo} className="App-logo" alt="logo"/>
                     <div className="buttonBox">
-                        <button disabled={disabled} onClick={onStartClicked}>Start</button>
+                        <button disabled={data.disabled} onClick={onStartClicked}>Start</button>
                         <button onClick={onSoundClicked}><img src={data.soundImg} alt="sound"/></button>
                         <button onClick={onClearClicked}>Clear</button>
                     </div>
@@ -77,7 +75,10 @@ const Index = (props) => {
                                    if (value > 23) {
                                        e.target.value = 23
                                    }
-                                   setHour( e.target.value)
+                                   const addedHour = new Date()
+                                   addedHour.setHours((+e.target.value+new Date().getHours()))
+                                   setHour(addedHour.getHours())
+                                   setHour(addedHour.getHours())
                                }} min={'0'} placeholder={'Hour'} max={'23'} id={'hour'}/>
                     </div>
                     <div className="inputBox" style={{display: data.countDisplay}}>
@@ -87,22 +88,30 @@ const Index = (props) => {
                                    if (value > 59) {
                                        e.target.value = 59
                                    }
-                                   setMinute( e.target.value)
+                                   const addedMinute = new Date()
+                                   console.log(typeof +e.target.value)
+                                   addedMinute.setMinutes((+e.target.value + new Date().getMinutes()))
+                                   setMinute(addedMinute.getMinutes())
                                }} min={'0'} placeholder={'Minute'} max={'59'} id={'minute'}/>
                     </div>
+
                     <div className="inputBox" style={{display: data.countDisplay}}>
-                        <input type="number"
+                        <input type="number" ref={sec}
                                onChange={(e) => {
                                    const value = e.target.value
                                    if (value > 59) {
                                        e.target.value = 59
                                    }
-                                   setSecond( e.target.value)
+                                   const addedSecond = new Date()
+                                   addedSecond.setSeconds((+e.target.value + new Date().getSeconds()))
+                                   setSecond(addedSecond.getSeconds())
                                }} min={'0'} placeholder={'Second'} max={'59'} id={'second'}/>
                     </div>
                     <div className="countBox">
-                        <Timer soundImg={data.soundImg} disabled={disabled} display={disabled ? '' : 'none'} getHour={hour}
-                               getMinute={minute} getSecond={second} audio={data.soundImg===volume?audio:''}/>
+                        <Timer soundImg={data.soundImg} disabled={data.disabled} display={data.disabled ? '' : 'none'}
+                               getHour={hour==='00'?new Date().getHours():hour}
+                               getMinute={minute==='00'?new Date().getMinutes():minute}
+                               getSecond={second==='00'?new Date().getSeconds():second}/>
                     </div>
                 </div>
             </div>
